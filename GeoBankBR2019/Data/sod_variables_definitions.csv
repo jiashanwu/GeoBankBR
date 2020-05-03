@@ -1,0 +1,81 @@
+﻿ ,NAME,COL REF,BRANCH   INSTITUTION  HOLDING CO,ACTION,DEFINITIONS
+1,ADDRESBR,F,BR,NC,Physical location of the branch
+2,ADDRESS,AU,INST,NC,The physical address of the main office (headquarters) of the institution.
+3,ASSET,AY,INST,NC,"Total assets of the institution as of June 30.   This amount is repeated for every location of the institution.  Be sure to use the assets only once for each institution, otherwise duplication of the assets when summarizing by institution.  Please note that assets are not available by location.  They are only reported at the institution level on the quarterly Call Reports and are assigned to the headquarter's location."
+4,BKCLASS,AZ,INST,NC,"An alpha code that indicates major groupings of institutions based on insuring agent, entity type, charter agent, Federal Reserve membership status and country."
+5,BKMO,O,BR,MODIFIED,"Main office / branch identifier; Main office  = 1, branch = 0"
+6,BRCENM,K,BR,NC,Code used to describe the nature of the reported deposits:
+7,BRNUM,C,BR,NC,Numerical reference to identify a branch office within one institution
+8,BRSERTYP,M,BR,NC,"Code that defines the type of service the branch office provides:                                                               11- Full Service, brick and mortar office"
+9,CALL,BA,INST,MODIFIED,"Prior to 2012, OTS institutions filed a quarterly Thrift Financial Report (TFR). All other institutions file the CALL report."
+10,CBSA_DIV_NAMB,P,BR,NC,"The name that corresponds to a code for a county or group of counties within a Core Based Statistical Area that contains a core with a population of at least 2.5 million. A Metropolitan Division consists of one or more main/secondary counties that represent an employment center or centers, plus adjacent counties associated with the main county or counties through commuting ties."
+11,CERT,B ,INST,NC,The certificate number assigned to an institution for deposit insurance.
+12,CHARTER,BB,INST,MODIFIED,Identifies whether an institution is federally or state chartered.
+13,CHRTAGNN,BC,INST,NC,The name of the chartering agency of the institution.
+14,CHRTAGNT,BD,INST,NC,The abbreviation of the chartering agency of the institution.
+15,CITY,AV,INST,NC,The city where the of the headquarters of the institution is located.
+16,CITY2BR,Q,BR,NC,Central city based on the reported ZIP code of the branch
+17,CITYBR,G,BR,NC,Reported city in which the branch is located
+18,CITYHCR,AQ,HCR,NC,The city of the headquarters of the top regulatory bank holding company
+19,CLCODE,BD,INST,NC,A two-digit numeric code that identifies the major and minor categories of an institution.
+20,CNTRYNA,BF,INST,NC,The country name where the headquarters of the institution is chartered.
+21,CNTRYNAB,R,BR,NC,Country name in which the branch is located.
+22,CNTYNAMB,H,BR,NC,County name in which the branch is located.
+23,CNTYNUMB,S,BR,NC,County number that corresponds to the county in which the branch is located.
+24,CONSOLD,L,BR,NEW,"When BRCENM = C, consolidated, this is the office number (brnum) in which the deposits are reported.  Both branches should be within the same state and county."
+25,CSABR,T,BR,NC,"The identifying code of a geographic entity consisting of two or more adjacent Core Based Statistical Areas (CBSAs) with employment interchange measures of at least 15. Pairs of CBSAs with employment interchange measures of at least 25 combine automatically. Pairs of CBSAs with employment interchange measures of at least 15, but less than 25, may combine if local opinion in both areas favors combination."
+26,CSANAMBR,U,BR,NC,"The name of a geographic entity consisting of two or more adjacent Core Based Statistical Areas (CBSAs) with employment interchange measures of at least 15. Pairs of CBSAs with employment interchange measures of at least 25 combine automatically. Pairs of CBSAs with employment interchange measures of at least 15, but less than 25, may combine if local opinion in both areas favors combination."
+27,DENOVO,BG,INST,NC,"A flag used to indicate whether an institution is a new institution, not a recharter."
+28,DEPDOM,BH,INST,NC,Total domestic deposits of the institution as of June 30.
+29,DEPSUM ,BI,INST,NC,Total deposits of the institution as of June 30.
+30,DEPSUMBR,N,BR,NC,Branch office deposits as of June 30
+31,DIVISIONB,V,BR,NC,"A county or group of counties within a Core Based Statistical Area that contains a core with a population of at least 2.5 million. A Metropolitan Division consists of one or more main/secondary counties that represent an employment center or centers, plus adjacent counties associated with the main county or counties through commuting ties."
+32,DOCKET,BJ,INST,NC,A unique identification number assigned to institutions chartered by the Office of the Thrift Supervision (OTS) or that become members of the Federal Home Loan System.
+33,ESCROW,BK,INST,NC,Escrow deposits report on the Thrift Financial Reports.  These are included in the total domestic deposits on the Call Reports.
+34,FDICDBS,BL,INST,NC,The number assigned to the FDIC Regional Office that services the institution.
+35,FDICNAME,BM,INST,NC,The name of the FDIC Regional Office that services the institution.
+36,FED,BN,INST,NC,The number that identifies the Federal Reserve District where the institution is located.
+37,FEDNAME,BO,INST,NC,The name that identifies the Federal Reserve District where the institution is located.
+38,HCTMULT,AN,HCR,NC,"The code that identifies the type of holding companyassociated with the branch.  The options are MULT, Multi-bank holding company; ONE, one bank holding company; and NONE, not a member of a bank holding company."
+39,INSAGNT1,BP,INST,NC,"The primary insurer, insurance agent, or insurance status of an institution"
+40,INSBRDD,BR,INST,NC,Demand deposits in insured branches located in Puerto Rico and U.S. Territories and Possessions.
+41,INSBRTS,BS,INST,NC,Time and savings deposits in insured branches located in Puerto Rico and U.S. Territories and Possessions.
+42,INSURED,BQ,INST,MODIFIED,"Identifies commercial banks (CB),  savings institutions (SA), and insured branches of foreign banks (IB)"
+43,METROBR,Y,BR,NC,"An indicator for an area that contains a core urban area of 50,000 or more population"
+44,MICROBR,Z,BR,NC,"An indicator for an area contains an urban core of at least 10,000 (but less than 50,000) population. "
+45,MSABR,W,BR,RENAMED,"The Metropolitan Statistical Areas (MSABR) are based on the 2010 Census. These areas correspond to the state/county/CBSA relationships as defined by the Census Bureau. For the purpose of the Summary of Deposits, MSAs reflect only the CBSA codes for metropolitan areas (use MSABR for the Summary of Deposits). "
+46,MSANAMB,X,BR,RENAMED,"The Metropolitan Statistical Area name in which the branch is physically located.  The Metropolitan Statistical Areas (MSABR) are based on the 2010 Census. These areas correspond to the state/county/CBSA relationships as defined by the Census Bureau. For the purpose of the Summary of Deposits, MSAs reflect only the CBSA codes for metropolitan areas (use MSABR for the Summary of Deposits). "
+47,NAMEBR,AA,BR,NC,Branch name.
+48,NAMEFULL,E,INST,NC,Institution name.
+49,NAMEHCR,AP,HCR,NC,The name of the headquarters of the top regulatory bank holding company.
+50,NECNAMB,AC,BR,NEW,Name of the New England City Town Areas based on the PLACENUM.
+51,NECTABR,AB,BR,NEW,Code of the New England City Town Areas based on the PLACENUM.
+52,OCCDIST,BT,INST,NC,"A number used to identify the Comptroller of the Currency district in which the institution is located; 01-Northeast, 03 Central, 04 Western and 05 Southern."
+53,OCCNAME,BU,INST,NC,"The name associated with the Comptroller of the Currency district in which the institution is located; 01-Northeast, 03 Central, 04 Western and 05 Southern."
+54,PLACENUM,AD,BR,NC,"The FIPS MCD (Minor Civil Division) code refers to a subsection of the U.S. Census county subdivision statistics. The county subdivision FIPS includes census data for county divisions, census subareas, minor civil divisions, unorganized territories, and incorporated areas. "
+55,REGAGNT,BV,INST,NC,The primary regulatory agency of the institution
+56,RSSDHCR,AO,HCR,NC,The unique number assigned by the Federal Reserve Board (FRB) to the top regulatory bank holding company.
+57,RSSDID,AS,INST,NC,The unique number assigned by the Federal Reserve Board (FRB) to the institution.
+58,SIMS_Acquired Date,AE,BR,NEW,The date that a branch was last acquired by another institution
+59,SIMS_Description,AI,BR,NEW,The quality of the match of the branch's physical location to a latitude and longitude with a given projection.
+60,SIMS_Established Date,AF,BR,NEW,The date that the branch location was established.
+61,SIMS_Latititude,AG,BR,REPOPULATED,The lattitude of the branch's physical location.
+62,SIMS_Longitude,AH,BR,REPOPULATED,The longitude of the branch's physical location
+63,SIMS_Projection,AJ,BR,NEW,The method used to arrive at the latitude and longitude of the branch's physical location.
+64,SPECDESC,BX,INST,NC,"The description of a mutually exclusive industry classification grouping which indicates the institution’s primary asset specialization.
+"
+65,SPECGRP,BW,INST,NC,A mutually exclusive industry classification grouping which indicates the institution’s primary asset specialization. (see SPECDESC above)
+66,STALP,AW,INST,NC,The state abbreviation of the location of the institution's headquarters.
+67,STALPBR,I,BR,NC,The state abbreviation of the location in which the branch is physically located.
+68,STALPHCR,AR,HCR,NC,The state abbreviation of the headquarters of the top regulatory bank holding company.
+69,STCNTY,BY,INST,NC,The state and county FIPS code associated with the headquarters location of the institution.
+70,STCNTYBR,AK,BR,NC,The state and county FIPS code associated with the specific branch location.
+71,STNAME,BZ,INST,NC,The state name of the location of the institution's headquarters.
+72,STNAMEBR,AL,BR,NC,The state name where branch is physically located.
+73,STNUMBR,AM,BR,NC,The FIPS number of the state in which the branch is physically located.
+74,UNINUMBR,D,BR,NC,"The unique number associated with a specific physical location of a branch.  This number remains with this location over time, regardless of ownership."
+75,UNIT,AT,INST,NC,A flag that identifies an institution with only a main office location; no branch locations.
+76,USA,CA,INST,NC,A flag that identifies that the institution is headquartered in the United States.
+77,YEAR,A,BR,RENAMED,Year of survey (1994 - Current). All SOD surveys are annual as of June 30.
+78,ZIP,AX,INST,NC,The ZIP code associated with the physical address of the institution's headquarters.
+79,ZIPBR,J,BR,NC,The ZIP code associated with the physical address of the branch.
