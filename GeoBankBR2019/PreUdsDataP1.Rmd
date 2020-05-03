@@ -1,0 +1,194 @@
+---
+title: "A Preliminary analysis of the geograhpical distribution of US banks in 2019"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+## Understanding and Prepossessing the data: 1. ER Diagram and the HCR-INST-BR ternary relationship
+
+This analysis aims to assess the geographic pattern of bank branch distribution using the Summary of Deposit (SoD) data. The data is readily available in [this SoD link](https://www7.fdic.gov/sod/sodDownload3.asp?sState=all&sInfoAsOf=2019&submit1=Continue&barItem=6). The SoD link also contains another table with detailed defintions of each variable within the SoD data. To start, we download the 2019 SoD (sod_2019, hereafter) for further analysis.
+
+```{r}
+
+rm(list = ls())
+
+# install.packages("xlsx")
+# install.packages("wordcloud")
+# install.packages("collapsibleTree")
+# install.packages("ggplot2")
+# install.packages("gridExtra")
+
+# loading packages
+
+library(xlsx)
+library(wordcloud)
+library(collapsibleTree)
+library(ggplot2)
+library(gridExtra)
+
+```
+
+```{r}
+
+# set the work directory
+setwd('C:\\Users\\jiash\\Dropbox\\hw\\git\\bank_geo\\data')
+
+# import the dataset: the sod_2019 data and metadata sod_dfn
+sod_2019 <- read.csv('ALL_2019.csv')
+sod_dfn <- read.csv('sod_variables_definitions.csv')
+
+```
+
+The metadata sod_dfn also breaks down the variables into three categories: HCR, INST and BR. 
+HCR (Horizontal Capital Review) is a type of regulatory documents required to be filed by "Large and Noncomplex Firms". More details of the HCR can be found from a brief description from Fed in [here](https://www.federalreserve.gov/publications/2019-may-supervision-and-regulation-report-supervisory-developments.htm). Thus, HCR in later analysis can be interpreted as large BHCs (bank holding companies). Although not yet found, other two acronyms (INST, BR) are very likely referring to banking institutions and bank branches.Below, we make sure that the metadata file contains all variables in sod_2019.
+
+```{r}
+
+# Clean all variable names in sod_dfn doc
+sod_dfn$NAME <- toupper(sod_dfn$NAME) # Uppercase convertion
+sod_dfn$NAME <- gsub(' DATE', '_DATE', sod_dfn$NAME) # add the underscore to date variables
+sod_dfn$NAME <- gsub('LATITITUDE', 'LATITUDE', sod_dfn$NAME) # correct the typo
+sod_dfn$NAME <- gsub(' ', '', sod_dfn$NAME) # remove empty space
+
+# Make sure all the variable names included in sod_fn
+cat('1. All variables  available in the defintion docs? \n')
+sum(colnames(sod_2019) %in% sod_dfn$NAME) == ncol(sod_2019) # True
+
+```
+
+We notice that the table of SoD2019 can be organized as below ER diagrams:
+
+![Fig 1. The ER Digram of sod_2019](C:\\Users\\jiash\\Dropbox\\hw\\git\\bank_geo\\ERD.png)
+
+Accordingly, sod_2019 is segmented into three separate entites and one ternary relationship (we combine the INST-BR and HCR-INST) into one relationship.As a high leval summarization of the data, we start by accessing the ternary relationship HCR-INST-BR.
+
+
+### The HCR-INST-BR ternary relationshipship
+
+```{r}
+
+# Applying the unique command, the row# reduces from 86,367 to 84,900
+# Also note that some of the NAMEHCR is empty since those institutions have no HCR
+# But we have no empty values from NAMEFULL, meaning that all branches are associated with an INST
+ternary <- unique(sod_2019[, c('NAMEHCR', 'NAMEFULL', 'NAMEBR')])
+no_empty_hcr <- ternary[which(ternary$NAMEHCR != ''),]
+empty_hcr <- ternary[which(ternary$NAMEHCR == ''),c(2, 3)]
+
+num_br_hcr <- as.data.frame(table(no_empty_hcr$NAMEHCR))
+colnames(num_br_hcr) <- c('HCR', 'num_br')
+
+num_br_ins <- as.data.frame(table(empty_hcr$NAMEFULL))
+colnames(num_br_ins) <- c('INS', 'num_br')
+num_br_ins <- num_br_ins[num_br_ins$num_br > 0, ]
+
+```
+
+We find that some institutions have no associated HCRs. With that, we divide branches with/without a valid HCR. In later analysis, we refer to these group as HCR/noHCR group.
+
+```{r}
+
+# sum/mean of branches by group
+# the dataset summ is prepared for a bar/pie/error bar chart
+barchart <- data.frame(cls = c('with_HCR', 'wout_HCR'),
+                   sum_BR = c(sum(num_br_hcr$num_br), sum(num_br_ins$num_br)),
+                   ave_BR = c(mean(num_br_hcr$num_br), mean(num_br_ins$num_br)),
+                   std_BR = c(sd(num_br_hcr$num_br), sd(num_br_ins$num_br)))
+barchart$ave_BR <- round(barchart$ave_BR, 2)
+barchart$perc_BR <- round(barchart$sum_BR/sum(barchart$sum_BR) * 100, 2)
+
+# following dataset is prepared for a boxplot
+boxchart <- data.frame(rbind(cbind(num_br_hcr$num_br, rep('with_HCR', nrow(num_br_hcr))),
+                  cbind(num_br_ins$num_br, rep('wout_HCR', nrow(num_br_ins)))))
+colnames(boxchart) <- c('num_br', 'cls')
+boxchart$num_br <- as.numeric(as.character(boxchart$num_br))
+
+bar <- ggplot(barchart,aes(x = cls, y = sum_BR, fill = cls)) + 
+       geom_bar(stat = 'identity') + 
+       geom_text(aes(label = sum_BR), vjust = 0.6, color = "black",
+            position = position_dodge(0.9), size = 3) +
+       theme(legend.position = "none") + 
+       ggtitle("Fig 1.1. Total number BR")
+
+pie <- ggplot(barchart, aes(x = "", y = perc_BR, fill = cls)) +
+       geom_bar(stat="identity", width=1, color="white") +
+       coord_polar("y", start=0) +
+       theme_void() +
+       geom_text(aes(label = paste0(perc_BR, '%')), color = "white", size = 3, position = position_stack(vjust = 0.5)) +
+       scale_fill_brewer(palette = "Set1") + 
+       ggtitle("Fig 1.2. Distribution of total number BR")
+
+box <- ggplot(boxchart, aes(x = cls, y = num_br)) + 
+       geom_boxplot(outlier.colour="red", outlier.shape=8,
+                outlier.size=4) + 
+       stat_summary(fun.y = mean, geom = "point", shape = 23, size = 4) + 
+       ggtitle("Fig 1.3. Box plot of the number BR")
+
+err <- ggplot(barchart) +
+       geom_bar(aes(x = cls, y = ave_BR, fill = cls), stat = "identity", alpha = 0.5) + 
+       geom_text(aes(x = cls, y = ave_BR, label = ave_BR), vjust = 0.6, color = "black",
+            position = position_dodge(0.9), size = 3) +
+       geom_errorbar(aes(x = cls, ymin = ave_BR - std_BR, ymax = ave_BR + std_BR), width = 0.2, colour = "orange", alpha = 0.9, size = 1.5)  + 
+       ggtitle("Fig 1.4. Error bar average BR num")
+
+
+grid.arrange(
+  bar, pie, box, err,
+  widths = c(2, 2),
+  layout_matrix = rbind(c(1, 2),
+                        c(3, 4))
+)
+
+
+```
+
+The total branch number of HCR and noHCR are `r sum(num_br_hcr$num_br)` and `r sum(num_br_ins$num_br)`, which takes `r barchart$perc_BR[1]` and `r barchart$perc_BR[2]` percent of the total bank branches in US. The average among these two groups are `r barchart$ave_BR[1]` and `r barchart$ave_BR[2]`. From fig 1.1 and 1.2, it's straightforward that banks organized by HCR hold majority of bank branches in US. From fig 1.3 and 1.4, we find that within the HCR group, the average is dominated by several of the outlier, or big HCR BHCs that potentially hold vast numbers of branches. Below we find the top 10 banks with most branches and visualize a selected list of HCR BHCs in a wordcloud.
+
+```{r}
+
+# Top 10 banks in terms of branch numbers #
+cat('2. Top 10 banks in terms of branch:')
+head(sort(table(no_empty_hcr$NAMEHCR), decreasing = TRUE), 10)
+
+wordcloud(num_br_hcr$HCR, num_br_hcr$num_br, scale =c (1.2, 0.2),min.freq = 500, colors = palette())
+
+```
+
+It has also occured to me that the ternary relationship can be represented by a tree. As another exercise, I create a tree of the DEUTSCHE BANK.
+
+```{r}
+
+example <- ternary[ternary$NAMEHCR == 'DEUTSCHE BANK AKTIENGESELLSCHAFT', ]
+
+collapsibleTree(
+  example,
+  hierarchy = c("NAMEHCR", "NAMEFULL", "NAMEBR"),
+  width = 800,
+  fontSize = 8,
+  fill = brewer.pal(9, "RdBu"),
+  zoomable = TRUE
+)
+
+```
+
+The next part would focus on prepossessing and understanding the three entities highlighted in the ERD.
+
+```{r}
+
+# Fetch the variable names in each entity
+hcr.varnames <- sod_dfn$NAME[which(sod_dfn$BRANCH...INSTITUTION..HOLDING.CO == 'HCR')] # bank-holding company
+ins.varnames <- sod_dfn$NAME[which(sod_dfn$BRANCH...INSTITUTION..HOLDING.CO == 'INST')] # banks
+brh.varnames <- sod_dfn$NAME[which(sod_dfn$BRANCH...INSTITUTION..HOLDING.CO == 'BR')] # bank branches
+
+# Define three entities accordingly
+# the unique function removes duplicates
+hcr_raw <- unique(sod_2019[, hcr.varnames])
+ins_raw <- unique(sod_2019[, ins.varnames])
+brh_raw <- unique(sod_2019[, brh.varnames])
+
+# Save all results from Part 1
+setwd('C:\\Users\\jiash\\Dropbox\\hw\\git\\bank_geo\\data')
+save(sod_2019, sod_dfn, hcr_raw, ins_raw, brh_raw, ternary, file = 'P1.RData')
+
+```
