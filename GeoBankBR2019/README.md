@@ -22,4 +22,5 @@ The Bank Holding Companies (BHC/HCR) are in the highest hierachy. Major analysis
 The Bank Holding Companies (BHC/HCR) are in the highest hierachy. Major analysis can be found in the following link:
 
 [Banking institute analysis](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/PreUdsDataP2_INS.ipynb)
+
 [Banking branches analysis](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/PreUdsDataP2_BRH.ipynb)
