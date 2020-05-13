@@ -9,7 +9,16 @@ This section aims to understand the SoD data. To start, we builds the entity-rel
 
 ![SoD ERD](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/ERD.PNG)
 
-### BHC (HRC)
+I conduct some preliminary analysis into this ERD: [ERD](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/PreUdsDataP1.ipynb)
 
-The Bank Holding Companies (BHC) are in the highest hierachy. Major analysis can be found in the following link:
+### BHC (HCR)
 
+The Bank Holding Companies (BHC/HCR) are in the highest hierachy. Major analysis can be found in the following link:
+
+[HRC analysis](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/PreUdsDataP2_HCR.ipynb)
+
+### Banking institute and branches
+
+The Bank Holding Companies (BHC/HCR) are in the highest hierachy. Major analysis can be found in the following link:
+
+[Banking institute analysis](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/PreUdsDataP2_INS.ipynb)
