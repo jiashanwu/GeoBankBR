@@ -24,3 +24,7 @@ The Bank Holding Companies (BHC/HCR) are in the highest hierachy. Major analysis
 [Banking institute analysis](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/PreUdsDataP2_INS.ipynb)
 
 [Banking branches analysis](https://github.com/jiashanwu/GeoBankBR/blob/master/GeoBankBR2019/PreUdsDataP2_BRH.ipynb)
+
+### A R shiny to demonstrate geo distribution of a given BHC RSSDID
+
+I have also built a R shiny to visualize geo distribution in [here](https://jiashanwu.shinyapps.io/shiny_bankgeo2/).
