@@ -5,3 +5,5 @@ This project aims to analyze the SoD (summary of deposits) data in understanding
 The project mainly uses Jupyter Notebook for data prepossessing as well as visualization.
 
 As a pilot study, I first make an effort to understand the 2019 data, see [SoD2019](https://github.com/jiashanwu/GeoBankBR/tree/master/GeoBankBR2019).
+
+I have also built a R shiny to visualize geo distribution in [here](https://jiashanwu.shinyapps.io/shiny_bankgeo2/).
